@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "primero" do |vmHost1|
     vmHost1.vm.box = "ubuntu/jammy64"
-    vmHost1.vm.hostname = "VM1-Grupo-Nano"
+    vmHost1.vm.hostname = "VM1-Grupo-Ryodan"
     vmHost1.vm.network "private_network", :name => '', ip: "192.168.56.5"
     
     # Comparto la carpeta del host donde estoy parado contra la vm
@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
 
       vmHost1.vm.provider "virtualbox" do |vb|
         vb.memory = "1024"
-        vb.name = "VM1-Grupo-Nano"
+        vb.name = "VM1-Grupo-Ryodan"
         vb.cpus = 1
         vb.linked_clone = true
         # Seteo controladora Grafica
@@ -48,7 +48,7 @@ Vagrant.configure("2") do |config|
     
     config.vm.define :segundo do |vmHost2|
       vmHost2.vm.box = "generic/fedora39"
-      vmHost2.vm.hostname = "VM2-Grupo-Nano"
+      vmHost2.vm.hostname = "VM2-Grupo-Ryodan"
       vmHost2.vm.network "private_network", :name => '', ip: "192.168.56.6"
       
       # Comparto la carpeta del host donde estoy parado contra la vm
@@ -66,7 +66,7 @@ Vagrant.configure("2") do |config|
 
     vmHost2.vm.provider "virtualbox" do |vb2|
       vb2.memory = "1024"
-      vb2.name = "VM2-Grupo-Nano"
+      vb2.name = "VM2-Grupo-Ryodan"
       vb2.cpus = 1
       vb2.linked_clone = true
       # Seteo controladora Grafica
