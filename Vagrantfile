@@ -30,6 +30,7 @@ Vagrant.configure("2") do |config|
       end    
       # Puedo Ejecutar un script que esta en un archivo
       vmHost1.vm.provision "shell", path: "configurar_lvm_ubuntu.sh"
+      vmHost1.vm.provision "shell", path: "cruzar_claves.sh"
       vmHost1.vm.provision "shell", path: "script_Enable_ssh_password.sh"
       vmHost1.vm.provision "shell", privileged: false, path: "script_Fix_history.sh"
       vmHost1.vm.provision "shell", path: "instala_paquetes.sh"
