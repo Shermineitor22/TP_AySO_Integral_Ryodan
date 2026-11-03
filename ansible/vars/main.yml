@@ -1,4 +1,12 @@
 ---
 # Variables Globales:
 
-Nombre_Grupo: "Nombre-Grupo-Ejemplo"
+Nombre_Grupo: "Ryodan"
+Division: "313" 
+Integrantes:
+  - { rol: "R1", nombre: "Maximiliano Ivan", apellido: "Quipildor", legajo: "121751" }
+  - { rol: "R2", nombre: "Maximiliano Ivan", apellido: "Quipildor", legajo: "121751" }
+  - { rol: "R3", nombre: "Maximiliano Ivan", apellido: "Quipildor", legajo: "121751" }
+  - { rol: "R4", nombre: "Juan Martin", apellido: "Castro", legajo: "110419" }
+  - { rol: "R5", nombre: "Juan Martin", apellido: "Castro", legajo: "110419" }
+  - { rol: "R6", nombre: "Juan Martin", apellido: "Castro", legajo: "110419" }
