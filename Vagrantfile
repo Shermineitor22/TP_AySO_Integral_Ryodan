@@ -9,8 +9,7 @@ Vagrant.configure("2") do |config|
     vmHost1.vm.network "private_network", :name => '', ip: "192.168.56.5"
     
     # Comparto la carpeta del host donde estoy parado contra la vm
-    vmHost1.vm.synced_folder 'compartido_Host1/', '/home/vagrant/compartido', 
-    owner: 'vagrant', group: 'vagrant' 
+    vmHost1.vm.synced_folder 'compartido/', '/home/vagrant/compartido', owner: 'vagrant', group: 'vagrant' 
 
       # Agrega la key Privada de ssh en .vagrant/machines/default/virtualbox/private_key
       vmHost1.ssh.insert_key = true
@@ -30,30 +29,37 @@ Vagrant.configure("2") do |config|
       end    
       # Puedo Ejecutar un script que esta en un archivo
       vmHost1.vm.provision "shell", path: "configurar_lvm_ubuntu.sh"
-      vmHost1.vm.provision "shell", path: "cruzar_claves.sh"
+      vmHost1.vm.provision "shell", path: "Bash_script/alta_usuarios.sh", args: "Bash_script/Lista_Usuarios.txt"
+      vmHost1.vm.provision "shell", path: "Bash_script/check_URL.sh", args: "Bash_script/Lista_URL.txt"
       vmHost1.vm.provision "shell", path: "script_Enable_ssh_password.sh"
       vmHost1.vm.provision "shell", privileged: false, path: "script_Fix_history.sh"
       vmHost1.vm.provision "shell", path: "instala_paquetes.sh"
-      vmHost1.vm.provision "shell", privileged: false, inline: <<-SHELL
-      # Los comandos aca se ejecutan como vagrant
-  
-      mkdir -p /home/vagrant/repogit
-      cd /home/vagrant/repogit
-      git clone https://github.com/upszot/UTN-FRA_SO_onBording.git 
-      git clone https://github.com/upszot/UTN-FRA_SO_Ansible.git
-      git clone https://github.com/upszot/UTN-FRA_SO_Docker.git
 
-    SHELL
+      vmHost1.vm.provision "shell", privileged: true, inline: <<-SHELL
+        mkdir -p /home/vagrant/repogit
+        chown -R vagrant:vagrant /home/vagrant/repogit
+        rm -rf /home/vagrant/repogit/UTN-FRA_SO_onBording /home/vagrant/repogit/UTN-FRA_SO_Ansible /home/vagrant/repogit/UTN-FRA_SO_Docker
+      SHELL
+
+      vmHost1.vm.provision "shell", privileged: false, inline: <<-SHELL
+
+        cd /home/vagrant/repogit
+        git clone https://github.com/upszot/UTN-FRA_SO_onBording.git
+        git clone https://github.com/upszot/UTN-FRA_SO_Ansible.git
+        git clone https://github.com/upszot/UTN-FRA_SO_Docker.git
+
+      SHELL
     end
     
     
     config.vm.define :segundo do |vmHost2|
       vmHost2.vm.box = "generic/fedora39"
       vmHost2.vm.hostname = "VM2-Grupo-Ryodan"
-      vmHost2.vm.network "private_network", :name => '', ip: "192.168.56.6"
+      vmHost2.vm.network "private_network", :name => '', ip: "192.168.56.6", netmask: "255.255.255.0"
       
       # Comparto la carpeta del host donde estoy parado contra la vm
-      vmHost2.vm.synced_folder 'compartido_Host2/', '/home/vagrant/compartido'
+
+      vmHost2.vm.synced_folder 'compartido/', '/home/vagrant/compartido', owner: 'vagrant', group: 'vagrant'
   
     # Agrega la key Privada de ssh en .vagrant/machines/default/virtualbox/private_key
     vmHost2.ssh.insert_key = true
@@ -77,6 +83,8 @@ Vagrant.configure("2") do |config|
     
     # Puedo Ejecutar un script que esta en un archivo
     vmHost2.vm.provision "shell", path: "configurar_lvm_fedora.sh"
+    vmHost2.vm.provision "shell", path: "Bash_script/alta_usuarios.sh", args: "Bash_script/Lista_Usuarios.txt"
+    vmHost2.vm.provision "shell", path: "Bash_script/check_URL.sh", args: "Bash_script/Lista_URL.txt"
     vmHost2.vm.provision "shell", path: "script_Enable_ssh_password.sh"
     vmHost2.vm.provision "shell", privileged: false, path: "script_Fix_history.sh"
 
@@ -84,14 +92,20 @@ Vagrant.configure("2") do |config|
     vmHost2.vm.provision "shell", inline: <<-SHELL
       dnf install -y ansible tree git
     SHELL
-
-    # Provisión para clonar los repositorios como usuario vagrant
-    vmHost2.vm.provision "shell", privileged: false, inline: <<-SHELL
+        vmHost2.vm.provision "shell", privileged: true, inline: <<-SHELL
       mkdir -p /home/vagrant/repogit
+      chown -R vagrant:vagrant /home/vagrant/repogit
+      rm -rf /home/vagrant/repogit/UTN-FRA_SO_onBording /home/vagrant/repogit/UTN-FRA_SO_Ansible /home/vagrant/repogit/UTN-FRA_SO_Docker
+    SHELL
+    vmHost2.vm.provision "shell", privileged: false, inline: <<-SHELL
       cd /home/vagrant/repogit
-      git clone https://github.com/upszot/UTN-FRA_SO_onBording.git 
+      git clone https://github.com/upszot/UTN-FRA_SO_onBording.git
       git clone https://github.com/upszot/UTN-FRA_SO_Ansible.git
       git clone https://github.com/upszot/UTN-FRA_SO_Docker.git
     SHELL
+
   end
+
+  config.vm.provision "shell", path: "cruzar_claves.sh"
+
 end
