@@ -5,10 +5,10 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "primero" do |vmHost1|
     vmHost1.vm.box = "ubuntu/jammy64"
-    vmHost1.vm.hostname = "VM1-Grupo-Nano"
+    vmHost1.vm.hostname = "VM1-Grupo-Ryodan"
     vmHost1.vm.network "private_network", ip: "192.168.56.5"
     
-    vmHost1.vm.synced_folder 'compartido_Host1/', '/home/vagrant/compartido', 
+    vmHost1.vm.synced_folder 'compartido/', '/home/vagrant/compartido', 
     owner: 'vagrant', group: 'vagrant' 
 
     vmHost1.ssh.insert_key = true
@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
 
     vmHost1.vm.provider "virtualbox" do |vb|
       vb.memory = "1024"
-      vb.name = "VM1-Grupo-Nano"
+      vb.name = "VM1-Grupo-Ryodan"
       vb.cpus = 1
       vb.linked_clone = true
       vb.customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']      
@@ -44,14 +44,17 @@ Vagrant.configure("2") do |config|
       git clone https://github.com/upszot/UTN-FRA_SO_Ansible.git
       git clone https://github.com/upszot/UTN-FRA_SO_Docker.git
     SHELL
+
+    # Cruce de claves SSH y configuración de Ansible
+    vmHost1.vm.provision "shell", privileged: false, path: "cruzar_claves.sh"
   end
   
   config.vm.define :segundo do |vmHost2|
     vmHost2.vm.box = "generic/fedora39"
-    vmHost2.vm.hostname = "VM2-Grupo-Nano"
+    vmHost2.vm.hostname = "VM2-Grupo-Ryodan"
     vmHost2.vm.network "private_network", ip: "192.168.56.6"
     
-    vmHost2.vm.synced_folder 'compartido_Host2/', '/home/vagrant/compartido'
+    vmHost2.vm.synced_folder 'compartido/', '/home/vagrant/compartido'
   
     vmHost2.ssh.insert_key = true
     vmHost2.ssh.username = "vagrant"
@@ -64,7 +67,7 @@ Vagrant.configure("2") do |config|
 
     vmHost2.vm.provider "virtualbox" do |vb2|
       vb2.memory = "1024"
-      vb2.name = "VM2-Grupo-Nano"
+      vb2.name = "VM2-Grupo-Ryodan"
       vb2.cpus = 1
       vb2.linked_clone = true
       vb2.customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']
@@ -102,5 +105,8 @@ Vagrant.configure("2") do |config|
       git clone https://github.com/upszot/UTN-FRA_SO_Ansible.git
       git clone https://github.com/upszot/UTN-FRA_SO_Docker.git
     SHELL
+
+    # Cruce de claves SSH y configuración de Ansible
+    vmHost2.vm.provision "shell", privileged: false, path: "cruzar_claves.sh"
   end
 end
