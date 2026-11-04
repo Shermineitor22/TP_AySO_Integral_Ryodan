@@ -1,7 +1,10 @@
 ---
 - hosts:
-  - testing
-  - produccion
+    - testing
+    - produccion
+  
+  # Indicar que todo el playbook se ejecute como root
+  become: yes
 
   # Variables Globales
   vars_files:

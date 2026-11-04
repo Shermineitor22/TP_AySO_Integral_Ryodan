@@ -6,6 +6,12 @@
     name: "{{ Nombre_Grupo }}"
     state: present
 
+- name: Asegurar que existan los grupos primarios para cada rol
+  group:
+    name: "{{ item.rol | lower }}"
+    state: present
+  loop: "{{ Integrantes }}"
+
 - name: Crear usuario R1
   user:
     name: "{{ Integrantes[0].nombre | lower | regex_replace(' ', '_') }}"
