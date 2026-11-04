@@ -1,0 +1,73 @@
+---
+# tasks alta_usuarios_Ryodan
+
+- name: Asegurar que exista el grupo secundario del equipo
+  group:
+    name: "{{ Nombre_Grupo }}"
+    state: present
+
+- name: Crear usuario R1
+  user:
+    name: "{{ Integrantes[0].nombre | lower | regex_replace(' ', '_') }}"
+    comment: "{{ Integrantes[0].nombre }} {{ Integrantes[0].apellido }}"
+    group: "{{ Integrantes[0].rol | lower }}"
+    groups: "{{ Nombre_Grupo }}"
+    append: yes
+    password: "{{ 'vagrant' | password_hash('sha512') }}"
+    shell: /bin/bash
+    create_home: yes
+
+- name: Crear usuario R2
+  user:
+    name: "{{ Integrantes[1].nombre | lower | regex_replace(' ', '_') }}"
+    comment: "{{ Integrantes[1].nombre }} {{ Integrantes[1].apellido }}"
+    group: "{{ Integrantes[1].rol | lower }}"
+    groups: "{{ Nombre_Grupo }}"
+    append: yes
+    password: "{{ 'vagrant' | password_hash('sha512') }}"
+    shell: /bin/bash
+    create_home: yes
+
+- name: Crear usuario R3
+  user:
+    name: "{{ Integrantes[2].nombre | lower | regex_replace(' ', '_') }}"
+    comment: "{{ Integrantes[2].nombre }} {{ Integrantes[2].apellido }}"
+    group: "{{ Integrantes[2].rol | lower }}"
+    groups: "{{ Nombre_Grupo }}"
+    append: yes
+    password: "{{ 'vagrant' | password_hash('sha512') }}"
+    shell: /bin/bash
+    create_home: yes
+
+- name: Crear usuario R4
+  user:
+    name: "{{ Integrantes[3].nombre | lower | regex_replace(' ', '_') }}"
+    comment: "{{ Integrantes[3].nombre }} {{ Integrantes[3].apellido }}"
+    group: "{{ Integrantes[3].rol | lower }}"
+    groups: "{{ Nombre_Grupo }}"
+    append: yes
+    password: "{{ 'vagrant' | password_hash('sha512') }}"
+    shell: /bin/bash
+    create_home: yes
+
+- name: Crear usuario R5
+  user:
+    name: "{{ Integrantes[4].nombre | lower | regex_replace(' ', '_') }}"
+    comment: "{{ Integrantes[4].nombre }} {{ Integrantes[4].apellido }}"
+    group: "{{ Integrantes[4].rol | lower }}"
+    groups: "{{ Nombre_Grupo }}"
+    append: yes
+    password: "{{ 'vagrant' | password_hash('sha512') }}"
+    shell: /bin/bash
+    create_home: yes
+
+- name: Crear usuario R6
+  user:
+    name: "{{ Integrantes[5].nombre | lower | regex_replace(' ', '_') }}"
+    comment: "{{ Integrantes[5].nombre }} {{ Integrantes[5].apellido }}"
+    group: "{{ Integrantes[5].rol | lower }}"
+    groups: "{{ Nombre_Grupo }}"
+    append: yes
+    password: "{{ 'vagrant' | password_hash('sha512') }}"
+    shell: /bin/bash
+    create_home: yes

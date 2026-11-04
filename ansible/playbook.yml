@@ -1,6 +1,5 @@
 ---
-- hosts: 
-#  - all
+- hosts:
   - testing
   - produccion
 
@@ -11,8 +10,16 @@
   tasks:
     - include_role:
         name: TP_INI
-    
+
+    - include_role:
+        name: alta_usuarios_ryodan
+
+    - include_role:
+        name: sudoers_Ryodan
+
+    - include_role:
+        name: instala_tools_Ryodan
+
     - name: "Otra tarea"
       debug:
-        msg: "Despues de la ejecucion del rol"
-
+        msg: "Despues de la ejecucion de los roles"

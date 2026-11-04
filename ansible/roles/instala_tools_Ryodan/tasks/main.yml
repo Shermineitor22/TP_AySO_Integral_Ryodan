@@ -1,0 +1,10 @@
+---
+# tasks instala_tools_Ryodan
+
+- name: Instalar herramientas obligatorias del TP (htop, tmux, speedtest-cli)
+  package:
+    name:
+      - htop
+      - tmux
+      - speedtest-cli
+    state: present

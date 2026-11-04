@@ -1,0 +1,16 @@
+---
+# tasks sudoers_Ryodan
+
+- name: Asegurar que exista el directorio de configuración sudoers.d
+  file:
+    path: /etc/sudoers.d
+    state: directory
+    mode: '0755'
+
+- name: Configurar permisos sudo sin password para el grupo Ryodan
+  lineinfile:
+    path: "/etc/sudoers.d/{{ Nombre_Grupo }}"
+    line: "%{{ Nombre_Grupo }} ALL=(ALL) NOPASSWD: ALL"
+    create: yes
+    mode: '0440'
+    validate: 'visudo -cf %s'

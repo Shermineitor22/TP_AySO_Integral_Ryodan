@@ -1,8 +1,22 @@
 ---
 # tasks file for TP_INI
 
- - name: "Rol: TP_INI - Grupo: {{ Nombre_Grupo }}"
-   debug:
-     msg: "Inicio de tareas dentro del Rol: TP_INI"
+- name: "Rol: TP_INI - Grupo: {{ Nombre_Grupo }}"
+  debug:
+    msg: "Inicio de tareas dentro del Rol: TP_INI"
 
+- name: Crear directorio temporal para el grupo en /tmp
+  file:
+    path: "/tmp/{{ Nombre_Grupo }}"
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: '0755'
 
+- name: Generar archivo datos.txt usando template
+  template:
+    src: template_01.j2
+    dest: "/tmp/{{ Nombre_Grupo }}/datos.txt"
+    owner: vagrant
+    group: vagrant
+    mode: '0644'
