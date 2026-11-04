@@ -1,9 +1,11 @@
 version: '3'
 
 services:
-    web:
-        image: 
-        ports:
-            - 
-        volumes:
-            - 
+  web:
+    image: castrojuan/primerimagen:latest
+    ports:
+          - "8081:80"
+    volumes:
+          - /docker/web/file/:/usr/share/nginx/html/file/
+
+
