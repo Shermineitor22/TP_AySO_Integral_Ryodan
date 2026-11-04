@@ -1,0 +1,28 @@
+---
+- hosts:
+    - testing
+    - produccion
+  
+  # Indicar que todo el playbook se ejecute como root
+  become: yes
+
+  # Variables Globales
+  vars_files:
+    - vars/main.yml
+
+  tasks:
+    - include_role:
+        name: TP_INI
+
+    - include_role:
+        name: alta_usuarios_ryodan
+
+    - include_role:
+        name: sudoers_Ryodan
+
+    - include_role:
+        name: instala_tools_Ryodan
+
+    - name: "Otra tarea"
+      debug:
+        msg: "Despues de la ejecucion de los roles"

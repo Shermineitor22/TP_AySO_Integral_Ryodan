@@ -47,6 +47,18 @@ Vagrant.configure("2") do |config|
 
     # Cruce de claves SSH y configuración de Ansible
     vmHost1.vm.provision "shell", privileged: false, path: "cruzar_claves.sh"
+
+    # Preparar entorno de Python y dependencias de Ansible en la VM1
+    vmHost1.vm.provision "shell", privileged: false, inline: <<-SHELL
+      pip3 install --user ansible passlib
+    SHELL
+
+    # Ejecución automática del playbook de Ansible al finalizar el aprovisionamiento
+    vmHost1.vm.provision "shell", privileged: false, inline: <<-SHELL
+      export PATH=$HOME/.local/bin:$PATH
+      cd /vagrant/ansible
+      ansible-playbook -i inventory/hosts playbook.yml
+    SHELL
   end
   
   config.vm.define :segundo do |vmHost2|
@@ -95,7 +107,7 @@ Vagrant.configure("2") do |config|
     SHELL
 
     vmHost2.vm.provision "shell", inline: <<-SHELL
-      dnf install -y ansible tree git
+      dnf install -y ansible tree git python3-pip python3-setuptools python3-six
     SHELL
 
     vmHost2.vm.provision "shell", privileged: false, inline: <<-SHELL

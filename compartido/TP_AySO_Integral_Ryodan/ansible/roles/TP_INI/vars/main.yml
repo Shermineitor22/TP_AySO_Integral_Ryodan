@@ -1,0 +1,12 @@
+---
+# Variables del rol TP_INI
+Variable_Vars_main: "Ryodan"
+Nombre_Grupo: "Ryodan"
+Division: "Tu-Division"
+Integrantes:
+  - { rol: "R1", nombre: "TuNombre", apellido: "TuApellido" }
+  - { rol: "R2", nombre: "TuNombre", apellido: "TuApellido" }
+  - { rol: "R3", nombre: "TuNombre", apellido: "TuApellido" }
+  - { rol: "R4", nombre: "TuNombre", apellido: "TuApellido" }
+  - { rol: "R5", nombre: "TuNombre", apellido: "TuApellido" }
+  - { rol: "R6", nombre: "TuNombre", apellido: "TuApellido" }
