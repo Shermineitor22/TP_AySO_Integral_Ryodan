@@ -37,10 +37,6 @@ Vagrant.configure("2") do |config|
       fi
     SHELL
 
-    vmHost1.vm.provision "shell", inline: <<-SHELL
-      apt-get update && apt-get install -y ansible
-    SHELL
-
     vmHost1.vm.provision "shell", privileged: false, inline: <<-SHELL
       mkdir -p /home/vagrant/repogit
       cd /home/vagrant/repogit
